@@ -23,14 +23,14 @@ class MainScene extends Phaser.Scene {
 
     this.anims.create({
         key: 'idle',
-        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 1 }),
         frameRate: 5,
         repeat: -1
       });
       
       this.anims.create({
         key: 'walk',
-        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 6 }),
         frameRate: 8,
         repeat: -1
       });
@@ -46,6 +46,13 @@ class MainScene extends Phaser.Scene {
         key: 'punch',
         frames: this.anims.generateFrameNumbers('player', { start: 12, end: 15 }),
         frameRate: 10,
+        repeat: 0
+      });
+
+      this.anims.create({
+        key: 'down',
+        frames: this.anims.generateFrameNumbers('player', { start: 12, end: 15 }),
+        frameRate: 8,
         repeat: 0
       });
 
@@ -77,6 +84,10 @@ class MainScene extends Phaser.Scene {
       this.player.anims.play('wave', true);
     }
   
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+      this.player.anims.play('down', true);
+    }
+
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-speed);
       this.player.setFlipX(true);
