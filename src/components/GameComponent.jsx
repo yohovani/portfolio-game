@@ -4,6 +4,8 @@ import Phaser from 'phaser';
 class MainScene extends Phaser.Scene {
   constructor() {
     super('MainScene');
+    
+
   }
 
   preload() {
@@ -11,13 +13,29 @@ class MainScene extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64
     });
+    this.load.image('house', 'src/assets/world/casita.png');
     this.load.image('background', 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/74e37d9c-6a40-48b3-a42f-e5b674911024/d3k3dmb-fffae1e4-5604-47a7-85f2-25d6ac7b7688.png/v1/fill/w_900,h_627,q_80,strp/pallet_town___pueblo_paleta_by_deathkof_d3k3dmb-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjI3IiwicGF0aCI6IlwvZlwvNzRlMzdkOWMtNmE0MC00OGIzLWE0MmYtZTViNjc0OTExMDI0XC9kM2szZG1iLWZmZmFlMWU0LTU2MDQtNDdhNy04NWYyLTI1ZDZhYzdiNzY4OC5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.wN3Eaeg-eUUoTMHirGsPT0ZWtBK92fkcDzXwQMgaAog');
   }
 
+
   create() {
+    var platforms;
+
     this.add.image(400, 300, 'background');
     this.player = this.physics.add.sprite(64, 64, 'player');
+    this.player.setBounce(0.2);
+
     this.player.setCollideWorldBounds(true);
+
+    this.platforms = this.physics.add.staticGroup();
+
+    this.platforms.create(156, 80, 'house');
+    this.platforms.create(50, 250, 'house');
+    this.platforms.create(750, 220, 'house');
+
+
+    this.physics.add.collider(this.player, this.platforms);
+
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
